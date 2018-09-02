@@ -38,7 +38,6 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,15 +51,23 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.mtor = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.rep = new System.Windows.Forms.Button();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.dbr = new System.Windows.Forms.Button();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.mtor = new System.Windows.Forms.Button();
+            this.rep = new System.Windows.Forms.Button();
+            this.dbr = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.stats = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.drl = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ddl = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ol = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -71,10 +78,10 @@
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage9.SuspendLayout();
-            this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            this.tabPage12.SuspendLayout();
+            this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
@@ -187,15 +194,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(780, 23);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Edit Details";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -283,7 +281,7 @@
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage7.Size = new System.Drawing.Size(736, 302);
             this.tabPage7.TabIndex = 0;
-            this.tabPage7.Text = "List";
+            this.tabPage7.Text = "Deployable";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -335,36 +333,6 @@
             this.tabPage9.Text = "Onrepair";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
-            // tabPage10
-            // 
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(736, 302);
-            this.tabPage10.TabIndex = 3;
-            this.tabPage10.Text = "Deployed";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // tabPage11
-            // 
-            this.tabPage11.Controls.Add(this.dataGridView4);
-            this.tabPage11.Location = new System.Drawing.Point(4, 22);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(736, 302);
-            this.tabPage11.TabIndex = 4;
-            this.tabPage11.Text = "Damaged Beyond Repair";
-            this.tabPage11.UseVisualStyleBackColor = true;
-            // 
-            // mtor
-            // 
-            this.mtor.Location = new System.Drawing.Point(647, 81);
-            this.mtor.Name = "mtor";
-            this.mtor.Size = new System.Drawing.Size(123, 23);
-            this.mtor.TabIndex = 12;
-            this.mtor.Text = "Move to On-repair";
-            this.mtor.UseVisualStyleBackColor = true;
-            this.mtor.Visible = false;
-            this.mtor.Click += new System.EventHandler(this.mtor_Click);
-            // 
             // dataGridView3
             // 
             this.dataGridView3.AllowUserToAddRows = false;
@@ -379,37 +347,15 @@
             this.dataGridView3.Size = new System.Drawing.Size(736, 302);
             this.dataGridView3.TabIndex = 13;
             // 
-            // rep
+            // tabPage11
             // 
-            this.rep.Location = new System.Drawing.Point(452, 23);
-            this.rep.Name = "rep";
-            this.rep.Size = new System.Drawing.Size(133, 23);
-            this.rep.TabIndex = 13;
-            this.rep.Text = "Mark as Repaired";
-            this.rep.UseVisualStyleBackColor = true;
-            this.rep.Visible = false;
-            this.rep.Click += new System.EventHandler(this.rep_Click);
-            // 
-            // tabPage12
-            // 
-            this.tabPage12.Controls.Add(this.dataGridView5);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(736, 302);
-            this.tabPage12.TabIndex = 5;
-            this.tabPage12.Text = "Repaired";
-            this.tabPage12.UseVisualStyleBackColor = true;
-            // 
-            // dbr
-            // 
-            this.dbr.Location = new System.Drawing.Point(591, 23);
-            this.dbr.Name = "dbr";
-            this.dbr.Size = new System.Drawing.Size(179, 23);
-            this.dbr.TabIndex = 14;
-            this.dbr.Text = "Mark as Damage Beyond Repair";
-            this.dbr.UseVisualStyleBackColor = true;
-            this.dbr.Visible = false;
-            this.dbr.Click += new System.EventHandler(this.dbr_Click);
+            this.tabPage11.Controls.Add(this.dataGridView4);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Size = new System.Drawing.Size(736, 302);
+            this.tabPage11.TabIndex = 4;
+            this.tabPage11.Text = "Damaged Beyond Repair";
+            this.tabPage11.UseVisualStyleBackColor = true;
             // 
             // dataGridView4
             // 
@@ -425,6 +371,16 @@
             this.dataGridView4.Size = new System.Drawing.Size(736, 302);
             this.dataGridView4.TabIndex = 15;
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.dataGridView5);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(736, 302);
+            this.tabPage12.TabIndex = 5;
+            this.tabPage12.Text = "Repaired";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
             // dataGridView5
             // 
             this.dataGridView5.AllowUserToAddRows = false;
@@ -439,11 +395,139 @@
             this.dataGridView5.Size = new System.Drawing.Size(736, 302);
             this.dataGridView5.TabIndex = 15;
             // 
-            // Form2
+            // tabPage10
+            // 
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Size = new System.Drawing.Size(736, 302);
+            this.tabPage10.TabIndex = 3;
+            this.tabPage10.Text = "Deployed";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // mtor
+            // 
+            this.mtor.Location = new System.Drawing.Point(647, 81);
+            this.mtor.Name = "mtor";
+            this.mtor.Size = new System.Drawing.Size(123, 23);
+            this.mtor.TabIndex = 12;
+            this.mtor.Text = "Move to On-repair";
+            this.mtor.UseVisualStyleBackColor = true;
+            this.mtor.Visible = false;
+            this.mtor.Click += new System.EventHandler(this.mtor_Click);
+            // 
+            // rep
+            // 
+            this.rep.Location = new System.Drawing.Point(452, 23);
+            this.rep.Name = "rep";
+            this.rep.Size = new System.Drawing.Size(133, 23);
+            this.rep.TabIndex = 13;
+            this.rep.Text = "Mark as Repaired";
+            this.rep.UseVisualStyleBackColor = true;
+            this.rep.Visible = false;
+            this.rep.Click += new System.EventHandler(this.rep_Click);
+            // 
+            // dbr
+            // 
+            this.dbr.Location = new System.Drawing.Point(591, 23);
+            this.dbr.Name = "dbr";
+            this.dbr.Size = new System.Drawing.Size(179, 23);
+            this.dbr.TabIndex = 14;
+            this.dbr.Text = "Mark as Damage Beyond Repair";
+            this.dbr.UseVisualStyleBackColor = true;
+            this.dbr.Visible = false;
+            this.dbr.Click += new System.EventHandler(this.dbr_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(174, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Status:";
+            // 
+            // stats
+            // 
+            this.stats.AutoSize = true;
+            this.stats.Location = new System.Drawing.Point(251, 20);
+            this.stats.Name = "stats";
+            this.stats.Size = new System.Drawing.Size(40, 13);
+            this.stats.TabIndex = 16;
+            this.stats.Text = "Status:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(174, 33);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Date Rented:";
+            this.label4.Visible = false;
+            // 
+            // drl
+            // 
+            this.drl.AutoSize = true;
+            this.drl.Location = new System.Drawing.Point(251, 33);
+            this.drl.Name = "drl";
+            this.drl.Size = new System.Drawing.Size(71, 13);
+            this.drl.TabIndex = 18;
+            this.drl.Text = "Date Rented:";
+            this.drl.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(174, 46);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Date Due:";
+            this.label6.Visible = false;
+            // 
+            // ddl
+            // 
+            this.ddl.AutoSize = true;
+            this.ddl.Location = new System.Drawing.Point(251, 46);
+            this.ddl.Name = "ddl";
+            this.ddl.Size = new System.Drawing.Size(56, 13);
+            this.ddl.TabIndex = 20;
+            this.ddl.Text = "Date Due:";
+            this.ddl.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(174, 59);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Owner: ";
+            this.label7.Visible = false;
+            // 
+            // ol
+            // 
+            this.ol.AutoSize = true;
+            this.ol.Location = new System.Drawing.Point(251, 59);
+            this.ol.Name = "ol";
+            this.ol.Size = new System.Drawing.Size(44, 13);
+            this.ol.TabIndex = 22;
+            this.ol.Text = "Owner: ";
+            this.ol.Visible = false;
+            // 
+            // EquipViewUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(871, 438);
+            this.Controls.Add(this.ol);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.ddl);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.drl);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.stats);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.dbr);
             this.Controls.Add(this.rep);
             this.Controls.Add(this.mtor);
@@ -454,12 +538,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.name);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Form2";
+            this.Name = "EquipViewUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.tabPage1.ResumeLayout(false);
@@ -472,10 +555,10 @@
             this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage9.ResumeLayout(false);
-            this.tabPage11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            this.tabPage12.ResumeLayout(false);
+            this.tabPage11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            this.tabPage12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -493,7 +576,6 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label label3;
@@ -518,5 +600,13 @@
         private System.Windows.Forms.Button dbr;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.DataGridView dataGridView5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label stats;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label drl;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label ddl;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label ol;
     }
 }

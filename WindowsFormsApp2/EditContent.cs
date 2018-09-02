@@ -21,9 +21,31 @@ namespace WindowsFormsApp2
             string query = "SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.id= "+EquipViewUI.findid ;
            
             comboBox1.SelectedIndex = 0;
+            findCount("Select StockID from itemcontent where itemcontent.id =" +EquipViewUI.findid);
             setTextform(query);
         }
 
+        public void findCount(string query)
+        {
+           
+            openConnection();
+            adapter = new MySqlCommand(query, con);
+            MySqlDataReader myreader = adapter.ExecuteReader();
+            if (myreader.Read())
+            {
+
+                if (myreader.GetValue(0).ToString() != "0")
+                {
+                    repcount.Visible = true;
+                    repcount.Text = "This item has been repaired " + myreader.GetValue(0).ToString() + " times";
+                }
+                
+
+            }
+            myreader.Close();
+            closeConnection();
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             var a = 1 + comboBox1.SelectedIndex;
@@ -35,8 +57,8 @@ namespace WindowsFormsApp2
                     {
                         string insertQuery = "UPDATE itemcontent SET modelNumber='" + textBox1.Text + "' where itemID ="+Equipment.sendtext+" and id="+EquipViewUI.findid;
                         executeMyQuery(insertQuery);
-                    (System.Windows.Forms.Application.OpenForms["Form2"] as EquipViewUI).refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
-                    (System.Windows.Forms.Application.OpenForms["Form2"] as EquipViewUI).damagerefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 2");
+                    (System.Windows.Forms.Application.OpenForms["EquipViewUI"] as EquipViewUI).refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
+                    (System.Windows.Forms.Application.OpenForms["EquipViewUI"] as EquipViewUI).damagerefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 2");
 
                     //(System.Windows.Forms.Application.OpenForms["Form2"] as Form2).setTextform("SELECT items.id,items.name,category.description,items.description,COUNT(itemcontent.id) AS test FROM items left join category on items.categoryID = category.id left join itemcontent on itemcontent.itemID=items.id and items.id =" + UserControl1.sendtext);
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -54,9 +76,9 @@ namespace WindowsFormsApp2
                     executeMyQuery(insertQuery);
                     executeMyQuery(insertQuery1);
 
-                    (System.Windows.Forms.Application.OpenForms["Form2"] as EquipViewUI).refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
-                    (System.Windows.Forms.Application.OpenForms["Form2"] as EquipViewUI).damagerefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 2");
-                    (System.Windows.Forms.Application.OpenForms["Form2"] as EquipViewUI).setTextform("SELECT items.id,items.name,category.description,items.description,COUNT(itemcontent.id) AS test FROM items left join category on items.categoryID = category.id left join itemcontent on itemcontent.itemID=items.id and items.id =" + Equipment.sendtext+ "  where itemcontent.tagID < 2");
+                    (System.Windows.Forms.Application.OpenForms["EquipViewUI"] as EquipViewUI).refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
+                    (System.Windows.Forms.Application.OpenForms["EquipViewUI"] as EquipViewUI).damagerefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 2");
+                    (System.Windows.Forms.Application.OpenForms["EquipViewUI"] as EquipViewUI).setTextform("SELECT items.id,items.name,category.description,items.description,COUNT(itemcontent.id) AS test FROM items left join category on items.categoryID = category.id left join itemcontent on itemcontent.itemID=items.id and items.id =" + Equipment.sendtext+ "  where itemcontent.tagID < 2");
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Dispose();
 

@@ -13,17 +13,38 @@ namespace WindowsFormsApp2
     public partial class AddEquip : Form
     {
         MySqlConnection con = new MySqlConnection("server=localhost;database=db;user=root;password=root");
+        MySqlCommand adapter;
         MySqlCommand cmd;
         Equipment uc1 = new Equipment();
         public AddEquip()
         {
             InitializeComponent();
         }
-
+        public static string lastid;
         private void AddEquip_Load(object sender, EventArgs e)
         {
-            comboBox2.SelectedIndex = 1;
+            comboBox2.SelectedIndex = 0;
             comboBox1.SelectedIndex = 1;
+            string loadquery = "SELECT id FROM items ORDER BY id DESC LIMIT 1";
+            setCount(loadquery);
+        }
+
+
+        public void setCount(string query)
+        {
+
+            openConnection();
+            adapter = new MySqlCommand(query, con);
+            MySqlDataReader myreader = adapter.ExecuteReader();
+            if (myreader.Read())
+            {
+
+              lastid = myreader.GetValue(0).ToString();
+
+            }
+            myreader.Close();
+            closeConnection();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,10 +57,13 @@ namespace WindowsFormsApp2
                     DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
                     if (dg == DialogResult.Yes)
                     {
-                        string insertQuery = "INSERT INTO items(name, categoryID, tagID, description,status) VALUES ('" + textBox1.Text + "','" + a + "','1','" + textBox2.Text + "','"+comboBox2.SelectedText+"')";
+                        string insertQuery = "INSERT INTO items(name, categoryID, tagID, description,status) VALUES ('" + textBox1.Text + "','" + a + "','1','" + textBox2.Text + "','"+ comboBox2.Text + "')";
+                        string insertQuery1 = "INSERT INTO status(itemid,daterented,datedue,owner) VALUES ("+lastid+",'"+dtrdp1.Text+"','"+dddtp.Text+"','"+ownertb.Text+"')";
                         executeMyQuery(insertQuery);
-                     
-                        uc1.refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+                        executeMyQuery(insertQuery1);
+                        MessageBox.Show("Item added Successfully");
+                        //uc1.refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
                         this.Dispose();
                        
@@ -86,7 +110,7 @@ namespace WindowsFormsApp2
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     //MessageBox.Show("Executed");
-                    MessageBox.Show("Item added Successfully");
+                   // MessageBox.Show("Item added Successfully");
           
                 }
 
@@ -109,6 +133,32 @@ namespace WindowsFormsApp2
         private void AddEquip_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.Text == "Temporary")
+            {
+                dr.Visible = true;
+                dtrdp1.Visible = true;
+                dddtp.Visible = true;
+                ddlbl.Visible = true;
+                owner.Visible = true;
+                ownertb.Visible = true;
+                     
+
+            }
+            if (comboBox2.Text == "Permanent")
+            {
+                dr.Visible = false;
+                dtrdp1.Visible = false;
+                dddtp.Visible = false;
+                ddlbl.Visible = false;
+                owner.Visible = false;
+                ownertb.Visible = false;
+
+
+            }
         }
     }
 }

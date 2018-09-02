@@ -60,7 +60,12 @@ namespace WindowsFormsApp2
         private void button1_Click(object sender, EventArgs e)
         {
             var a = new AddEquip();
-            a.Show();
+            //a.Show();
+            a.ShowDialog();
+            if (a.DialogResult == DialogResult.OK)
+            {
+                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+            }
         }
 
         public void button4_Click(object sender, EventArgs e)
@@ -167,6 +172,17 @@ namespace WindowsFormsApp2
                 refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID where items.name like '%" + textBox1.Text + "%' and items.categoryID =" + i);
             }
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            sendtext = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
+            var a = new EditEquip();
+            a.ShowDialog();
+            if (a.DialogResult == DialogResult.OK)
+            {
+                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+            }
         }
     }
 }
