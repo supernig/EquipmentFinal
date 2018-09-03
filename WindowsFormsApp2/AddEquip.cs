@@ -25,7 +25,7 @@ namespace WindowsFormsApp2
         {
             comboBox2.SelectedIndex = 0;
             comboBox1.SelectedIndex = 1;
-            string loadquery = "SELECT id FROM items ORDER BY id DESC LIMIT 1";
+            string loadquery = "SELECT max(id) FROM items";
             setCount(loadquery);
         }
 
@@ -46,40 +46,66 @@ namespace WindowsFormsApp2
             closeConnection();
 
         }
+        int last;
+        public void verify(string query)
+        {
+
+            openConnection();
+            adapter = new MySqlCommand(query, con);
+            MySqlDataReader myreader = adapter.ExecuteReader();
+            if (myreader.Read())
+            {
+
+                 last = int.Parse(myreader.GetValue(0).ToString());
+
+            }
+            myreader.Close();
+            closeConnection();
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var a = 1 + comboBox1.SelectedIndex;
-            if (textBox1.Text != "" && textBox2.Text !="")
-            {
-                if (textBox1.Text != "" && textBox2.Text != "")
+            var test = lastid + 1;
+            verify("Select COUNT(*) FROM items where name ='" + textBox1.Text + "'");
+            var x = int.Parse(lastid) + 1;
+                if (textBox1.Text != "" || textBox2.Text != "")
+                {
+                if (last < 1)
                 {
                     DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
-                    if (dg == DialogResult.Yes)
-                    {
-                        string insertQuery = "INSERT INTO items(name, categoryID, tagID, description,status) VALUES ('" + textBox1.Text + "','" + a + "','1','" + textBox2.Text + "','"+ comboBox2.Text + "')";
-                        string insertQuery1 = "INSERT INTO status(itemid,daterented,datedue,owner) VALUES ("+lastid+",'"+dtrdp1.Text+"','"+dddtp.Text+"','"+ownertb.Text+"')";
-                        executeMyQuery(insertQuery);
-                        executeMyQuery(insertQuery1);
-                        MessageBox.Show("Item added Successfully");
-                        //uc1.refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+                        if (dg == DialogResult.Yes)
+                        {
+                            string insertQuery = "INSERT INTO items(name, categoryID, tagID, description,status) VALUES ('" + textBox1.Text + "','" + a + "','1','" + textBox2.Text + "','" + comboBox2.Text + "')";
+                        if (comboBox2.Text=="Temporary")
+                        {
+                            string insertQuery1 = "INSERT INTO status(itemid,daterented,datedue,owner) VALUES (" +x+ ",'" + dtrdp1.Text + "','" + dddtp.Text + "','" + ownertb.Text + "')";
+                            executeMyQuery(insertQuery1);
+                   
+                            setCount("SELECT max(id) FROM items");
+                        }
+                            executeMyQuery(insertQuery);
+                           
+                            MessageBox.Show("Item added Successfully");
+                            //uc1.refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
 
-                        this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                        this.Dispose();
-                       
-                    }
+                            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                            this.Dispose();
+
+                        }
 
                 }
                 else
                 {
                     MessageBox.Show("Something went wrong", "Error. ",
-   MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+       MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             else
             {
-                MessageBox.Show("Something went wrong", "Error. ",
-   MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Already Exist", "Error. ",
+       MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

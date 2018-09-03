@@ -27,7 +27,7 @@ namespace WindowsFormsApp2
             dbrrefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 4");
             repairrefresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id,repairlogs.daterepaired from items left join itemcontent on items.id = itemcontent.itemID inner JOIN repairlogs on  itemcontent.id = repairlogs.itemid where items.id =" + Equipment.sendtext + " and itemcontent.tagID = 1");
             setCount("Select COUNT(itemcontent.id) as test from itemcontent where itemcontent.itemID = "+Equipment.sendtext+" and itemcontent.tagID = 1");
-         
+            setStatus("SELECT * FROM status where itemID = " + Equipment.sendtext);
         }
 
        
@@ -158,31 +158,34 @@ namespace WindowsFormsApp2
             }
             myreader.Close();
             closeConnection();
-            if(flag == "Temporary")
-            {
-                setStatus("SELECT * FROM status where itemID = "+Equipment.sendtext);
-            }
+           
+
+              
+            
 
         }
         public void setStatus(string query)
         {
-            label4.Visible = true;
-            label6.Visible = true;
-            label7.Visible = true;
-            drl.Visible = true;
-            ddl.Visible = true;
-            ol.Visible = true;
+            
+           
             openConnection();
             adapter = new MySqlCommand(query, con);
             MySqlDataReader myreader = adapter.ExecuteReader();
             if (myreader.Read())
             {
 
+                label4.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                drl.Visible = true;
+                ddl.Visible = true;
+                ol.Visible = true;
                 drl.Text = myreader.GetValue(2).ToString();
                 ddl.Text = myreader.GetValue(3).ToString();
                 ol.Text = myreader.GetValue(4).ToString();
-
+               
             }
+            //MessageBox.Show(myreader.GetValue(2).ToString());
             myreader.Close();
             closeConnection();
 
@@ -226,17 +229,27 @@ namespace WindowsFormsApp2
         public static string findid = "";
         private void button1_Click(object sender, EventArgs e)
         {
-            findid = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[2].Value.ToString();
-            var a = new EditContent();
+            if(stk.Text != "0")
+            {
+                findid = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[2].Value.ToString();
+                var a = new EditContent();
+
+                // MessageBox.Show(id);
+                a.Show();
+            }
+
+            else
+            {
+                MessageBox.Show("Table is empty.", "Error. ",
+       MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
            
-           // MessageBox.Show(id);
-            a.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             var a = new AddContent();
-            a.Show();
+         
             a.ShowDialog();
             if (a.DialogResult == DialogResult.OK)
             {
@@ -247,15 +260,23 @@ namespace WindowsFormsApp2
        
         private void button2_Click(object sender, EventArgs e)
         {
-            DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
-            if (dg == DialogResult.Yes)
+            if (stk.Text != "0")
             {
-                string insertQuery = "DELETE FROM itemcontent WHERE id =" + dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[2].Value.ToString();
-                executeMyQuery(insertQuery);
-                refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
-                setCount("Select COUNT(itemcontent.id) as test from itemcontent where itemcontent.itemID = " + Equipment.sendtext + " and itemcontent.tagID = 1");
+                DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
+                if (dg == DialogResult.Yes)
+                {
+                    string insertQuery = "DELETE FROM itemcontent WHERE id =" + dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[2].Value.ToString();
+                    executeMyQuery(insertQuery);
+                    refresh("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + Equipment.sendtext + " and itemcontent.tagID < 2");
+                    setCount("Select COUNT(itemcontent.id) as test from itemcontent where itemcontent.itemID = " + Equipment.sendtext + " and itemcontent.tagID = 1");
 
 
+                }
+            }
+            else
+            {
+                MessageBox.Show("Table is empty.", "Error. ",
+       MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

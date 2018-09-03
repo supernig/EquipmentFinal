@@ -15,6 +15,7 @@ namespace WindowsFormsApp2
     {
         MySqlConnection con = new MySqlConnection("server=localhost;database=db;user=root;password=root");
         MySqlCommand cmd;
+        MySqlCommand adapter;
         DataTable grid = new DataTable();
         // int selectedRow;
 
@@ -22,13 +23,31 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
             refresh();
+            setCount("Select COUNT(*) as test from items ");
+    
         }
         public static string sendtext = "";
 
-    
+        string counter;
+        public void setCount(string query)
+        {
+
+            openConnection();
+            adapter = new MySqlCommand(query, con);
+            MySqlDataReader myreader = adapter.ExecuteReader();
+            if (myreader.Read())
+            {
+
+                counter = myreader.GetValue(0).ToString();
+
+            }
+            myreader.Close();
+            closeConnection();
+
+        }
 
 
-      
+
 
 
         public void refresh(string query = "select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID")
@@ -65,6 +84,8 @@ namespace WindowsFormsApp2
             if (a.DialogResult == DialogResult.OK)
             {
                 refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+                setCount("Select COUNT(*) as test from items ");
+
             }
         }
 
@@ -73,18 +94,28 @@ namespace WindowsFormsApp2
             textBox1.Text = "";
             comboBox1.SelectedIndex = -1;
             refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
-            
+            setCount("Select COUNT(*) as test from items ");
+
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
-            if (dg == DialogResult.Yes)
+            if (counter != "0")
             {
-                string insertQuery = "DELETE FROM items WHERE id ="+dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
-                executeMyQuery(insertQuery);
-                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
-
+                DialogResult dg = MessageBox.Show("Are you sure?", "Alert!", MessageBoxButtons.YesNo);
+                if (dg == DialogResult.Yes)
+                {
+                    string insertQuery = "DELETE FROM items WHERE id =" + dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
+                    executeMyQuery(insertQuery);
+                    refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+                    setCount("Select COUNT(*) as test from items ");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Table is empty.", "Error. ",
+    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
 
@@ -105,6 +136,7 @@ namespace WindowsFormsApp2
                 con.Close();
             }
         }
+       
 
 
         public void executeMyQuery(string query)
@@ -139,9 +171,17 @@ namespace WindowsFormsApp2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            sendtext = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
-            var a = new EquipViewUI();
-            a.Show();
+            if (counter != "0")
+            {
+                sendtext = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
+                var a = new EquipViewUI();
+                a.Show();
+            }
+            else
+            {
+                MessageBox.Show("Table is empty.", "Error. ",
+    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
         }
 
@@ -155,7 +195,7 @@ namespace WindowsFormsApp2
             else
             {
 
-                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID ");
+                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID where items.name like '%" + textBox1.Text + "%' or category.description like '%"+ textBox1.Text+"%' or items.status like '%"+ textBox1.Text+"%'");
             }
         }
 
@@ -176,13 +216,21 @@ namespace WindowsFormsApp2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            sendtext = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
-            var a = new EditEquip();
-            a.ShowDialog();
-            if (a.DialogResult == DialogResult.OK)
-            {
-                refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+            if(counter != "0") {
+                sendtext = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
+                var a = new EditEquip();
+                a.ShowDialog();
+                if (a.DialogResult == DialogResult.OK)
+                {
+                    refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
+                }
             }
+            else
+            {
+                MessageBox.Show("Table is empty.", "Error. ",
+    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            
         }
     }
 }
