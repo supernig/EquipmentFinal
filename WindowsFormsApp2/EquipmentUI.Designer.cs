@@ -37,7 +37,6 @@
             this.userControl11.Name = "userControl11";
             this.userControl11.Size = new System.Drawing.Size(870, 528);
             this.userControl11.TabIndex = 0;
-    
             // 
             // EquipmentUI
             // 

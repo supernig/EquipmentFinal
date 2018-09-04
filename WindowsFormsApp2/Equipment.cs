@@ -23,6 +23,7 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
             refresh();
+         
             setCount("Select COUNT(*) as test from items ");
     
         }
@@ -72,12 +73,13 @@ namespace WindowsFormsApp2
             dgv.Columns[3].HeaderCell.Value = "Status";
             dgv.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-           
+            
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+         
             var a = new AddEquip();
             //a.Show();
             a.ShowDialog();
@@ -110,6 +112,8 @@ namespace WindowsFormsApp2
                     executeMyQuery(insertQuery);
                     refresh("select items.id, items.name, category.description,items.status from items left join category on category.id = items.categoryID");
                     setCount("Select COUNT(*) as test from items ");
+                    var a = new AddEquip();
+                    a.setCount("SELECT id+1 AS next_id FROM items ORDER BY id DESC LIMIT 1");
                 }
             }
             else

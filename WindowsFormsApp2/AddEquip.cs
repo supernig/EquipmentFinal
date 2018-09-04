@@ -25,7 +25,7 @@ namespace WindowsFormsApp2
         {
             comboBox2.SelectedIndex = 0;
             comboBox1.SelectedIndex = 1;
-            string loadquery = "SELECT max(id) FROM items";
+            string loadquery = "SELECT IFNULL(MAX(`id`),0) + 1 AS nextId FROM `items`";
             setCount(loadquery);
         }
 
@@ -63,13 +63,13 @@ namespace WindowsFormsApp2
             closeConnection();
 
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             var a = 1 + comboBox1.SelectedIndex;
-            var test = lastid + 1;
+            
             verify("Select COUNT(*) FROM items where name ='" + textBox1.Text + "'");
-            var x = int.Parse(lastid) + 1;
+     
                 if (textBox1.Text != "" || textBox2.Text != "")
                 {
                 if (last < 1)
@@ -80,10 +80,10 @@ namespace WindowsFormsApp2
                             string insertQuery = "INSERT INTO items(name, categoryID, tagID, description,status) VALUES ('" + textBox1.Text + "','" + a + "','1','" + textBox2.Text + "','" + comboBox2.Text + "')";
                         if (comboBox2.Text=="Temporary")
                         {
-                            string insertQuery1 = "INSERT INTO status(itemid,daterented,datedue,owner) VALUES (" +x+ ",'" + dtrdp1.Text + "','" + dddtp.Text + "','" + ownertb.Text + "')";
+                            string insertQuery1 = "INSERT INTO status(itemid,daterented,datedue,owner) VALUES (" +lastid+ ",'" + dtrdp1.Text + "','" + dddtp.Text + "','" + ownertb.Text + "')";
                             executeMyQuery(insertQuery1);
                    
-                            setCount("SELECT max(id) FROM items");
+                            setCount("SELECT IFNULL(MAX(`id`),0) + 1 AS nextId FROM `items`");
                         }
                             executeMyQuery(insertQuery);
                            
